@@ -4,10 +4,10 @@
  * @license      {@link https://opensource.org/licenses/MIT|MIT License}
  */
 
-var MATH_CONST = require('../../math/const');
-var TransformMatrix = require('./TransformMatrix');
-var WrapAngle = require('../../math/angle/Wrap');
-var WrapAngleDegrees = require('../../math/angle/WrapDegrees');
+var MATH_CONST = require("../../math/const");
+var TransformMatrix = require("./TransformMatrix");
+var WrapAngle = require("../../math/angle/Wrap");
+var WrapAngleDegrees = require("../../math/angle/WrapDegrees");
 
 //  global bitmask flag for GameObject.renderMask (used by Scale)
 var _FLAG = 4; // 0100
@@ -20,7 +20,6 @@ var _FLAG = 4; // 0100
  */
 
 var Transform = {
-
     /**
      * Private internal value. Holds the horizontal scale value.
      *
@@ -110,27 +109,20 @@ var Transform = {
      * @since 3.18.0
      */
     scale: {
-
-        get: function ()
-        {
+        get: function() {
             return (this._scaleX + this._scaleY) / 2;
         },
 
-        set: function (value)
-        {
+        set: function(value) {
             this._scaleX = value;
             this._scaleY = value;
 
-            if (value === 0)
-            {
+            if (value === 0) {
                 this.renderFlags &= ~_FLAG;
-            }
-            else
-            {
+            } else {
                 this.renderFlags |= _FLAG;
             }
         }
-
     },
 
     /**
@@ -142,26 +134,19 @@ var Transform = {
      * @since 3.0.0
      */
     scaleX: {
-
-        get: function ()
-        {
+        get: function() {
             return this._scaleX;
         },
 
-        set: function (value)
-        {
+        set: function(value) {
             this._scaleX = value;
 
-            if (value === 0)
-            {
+            if (value === 0) {
                 this.renderFlags &= ~_FLAG;
-            }
-            else
-            {
+            } else {
                 this.renderFlags |= _FLAG;
             }
         }
-
     },
 
     /**
@@ -173,26 +158,19 @@ var Transform = {
      * @since 3.0.0
      */
     scaleY: {
-
-        get: function ()
-        {
+        get: function() {
             return this._scaleY;
         },
 
-        set: function (value)
-        {
+        set: function(value) {
             this._scaleY = value;
 
-            if (value === 0)
-            {
+            if (value === 0) {
                 this.renderFlags &= ~_FLAG;
-            }
-            else
-            {
+            } else {
                 this.renderFlags |= _FLAG;
             }
         }
-
     },
 
     /**
@@ -209,14 +187,11 @@ var Transform = {
      * @since 3.0.0
      */
     angle: {
-
-        get: function ()
-        {
+        get: function() {
             return WrapAngleDegrees(this._rotation * MATH_CONST.RAD_TO_DEG);
         },
 
-        set: function (value)
-        {
+        set: function(value) {
             //  value is in degrees
             this.rotation = WrapAngleDegrees(value) * MATH_CONST.DEG_TO_RAD;
         }
@@ -225,8 +200,8 @@ var Transform = {
     /**
      * The angle of this Game Object in radians.
      *
-     * Phaser uses a right-hand clockwise rotation system, where 0 is right, 90 is down, 180/-180 is left
-     * and -90 is up.
+     * Phaser uses a right-hand clockwise rotation system, where 0 is right, 1.57 is down, 3.14/-3.14 is left
+     * and -1.57 is up.
      *
      * If you prefer to work in degrees, see the `angle` property instead.
      *
@@ -236,14 +211,11 @@ var Transform = {
      * @since 3.0.0
      */
     rotation: {
-
-        get: function ()
-        {
+        get: function() {
             return this._rotation;
         },
 
-        set: function (value)
-        {
+        set: function(value) {
             //  value is in radians
             this._rotation = WrapAngle(value);
         }
@@ -262,12 +234,19 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setPosition: function (x, y, z, w)
-    {
-        if (x === undefined) { x = 0; }
-        if (y === undefined) { y = x; }
-        if (z === undefined) { z = 0; }
-        if (w === undefined) { w = 0; }
+    setPosition: function(x, y, z, w) {
+        if (x === undefined) {
+            x = 0;
+        }
+        if (y === undefined) {
+            y = x;
+        }
+        if (z === undefined) {
+            z = 0;
+        }
+        if (w === undefined) {
+            w = 0;
+        }
 
         this.x = x;
         this.y = y;
@@ -296,15 +275,22 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setRandomPosition: function (x, y, width, height)
-    {
-        if (x === undefined) { x = 0; }
-        if (y === undefined) { y = 0; }
-        if (width === undefined) { width = this.scene.sys.scale.width; }
-        if (height === undefined) { height = this.scene.sys.scale.height; }
+    setRandomPosition: function(x, y, width, height) {
+        if (x === undefined) {
+            x = 0;
+        }
+        if (y === undefined) {
+            y = 0;
+        }
+        if (width === undefined) {
+            width = this.scene.sys.scale.width;
+        }
+        if (height === undefined) {
+            height = this.scene.sys.scale.height;
+        }
 
-        this.x = x + (Math.random() * width);
-        this.y = y + (Math.random() * height);
+        this.x = x + Math.random() * width;
+        this.y = y + Math.random() * height;
 
         return this;
     },
@@ -319,9 +305,10 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setRotation: function (radians)
-    {
-        if (radians === undefined) { radians = 0; }
+    setRotation: function(radians) {
+        if (radians === undefined) {
+            radians = 0;
+        }
 
         this.rotation = radians;
 
@@ -338,9 +325,10 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setAngle: function (degrees)
-    {
-        if (degrees === undefined) { degrees = 0; }
+    setAngle: function(degrees) {
+        if (degrees === undefined) {
+            degrees = 0;
+        }
 
         this.angle = degrees;
 
@@ -358,10 +346,13 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setScale: function (x, y)
-    {
-        if (x === undefined) { x = 1; }
-        if (y === undefined) { y = x; }
+    setScale: function(x, y) {
+        if (x === undefined) {
+            x = 1;
+        }
+        if (y === undefined) {
+            y = x;
+        }
 
         this.scaleX = x;
         this.scaleY = y;
@@ -379,9 +370,10 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setX: function (value)
-    {
-        if (value === undefined) { value = 0; }
+    setX: function(value) {
+        if (value === undefined) {
+            value = 0;
+        }
 
         this.x = value;
 
@@ -398,9 +390,10 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setY: function (value)
-    {
-        if (value === undefined) { value = 0; }
+    setY: function(value) {
+        if (value === undefined) {
+            value = 0;
+        }
 
         this.y = value;
 
@@ -420,9 +413,10 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setZ: function (value)
-    {
-        if (value === undefined) { value = 0; }
+    setZ: function(value) {
+        if (value === undefined) {
+            value = 0;
+        }
 
         this.z = value;
 
@@ -439,9 +433,10 @@ var Transform = {
      *
      * @return {this} This Game Object instance.
      */
-    setW: function (value)
-    {
-        if (value === undefined) { value = 0; }
+    setW: function(value) {
+        if (value === undefined) {
+            value = 0;
+        }
 
         this.w = value;
 
@@ -458,11 +453,18 @@ var Transform = {
      *
      * @return {Phaser.GameObjects.Components.TransformMatrix} The populated Transform Matrix.
      */
-    getLocalTransformMatrix: function (tempMatrix)
-    {
-        if (tempMatrix === undefined) { tempMatrix = new TransformMatrix(); }
+    getLocalTransformMatrix: function(tempMatrix) {
+        if (tempMatrix === undefined) {
+            tempMatrix = new TransformMatrix();
+        }
 
-        return tempMatrix.applyITRS(this.x, this.y, this._rotation, this._scaleX, this._scaleY);
+        return tempMatrix.applyITRS(
+            this.x,
+            this.y,
+            this._rotation,
+            this._scaleX,
+            this._scaleY
+        );
     },
 
     /**
@@ -476,23 +478,36 @@ var Transform = {
      *
      * @return {Phaser.GameObjects.Components.TransformMatrix} The populated Transform Matrix.
      */
-    getWorldTransformMatrix: function (tempMatrix, parentMatrix)
-    {
-        if (tempMatrix === undefined) { tempMatrix = new TransformMatrix(); }
-        if (parentMatrix === undefined) { parentMatrix = new TransformMatrix(); }
+    getWorldTransformMatrix: function(tempMatrix, parentMatrix) {
+        if (tempMatrix === undefined) {
+            tempMatrix = new TransformMatrix();
+        }
+        if (parentMatrix === undefined) {
+            parentMatrix = new TransformMatrix();
+        }
 
         var parent = this.parentContainer;
 
-        if (!parent)
-        {
+        if (!parent) {
             return this.getLocalTransformMatrix(tempMatrix);
         }
 
-        tempMatrix.applyITRS(this.x, this.y, this._rotation, this._scaleX, this._scaleY);
+        tempMatrix.applyITRS(
+            this.x,
+            this.y,
+            this._rotation,
+            this._scaleX,
+            this._scaleY
+        );
 
-        while (parent)
-        {
-            parentMatrix.applyITRS(parent.x, parent.y, parent._rotation, parent._scaleX, parent._scaleY);
+        while (parent) {
+            parentMatrix.applyITRS(
+                parent.x,
+                parent.y,
+                parent._rotation,
+                parent._scaleX,
+                parent._scaleY
+            );
 
             parentMatrix.multiply(tempMatrix, tempMatrix);
 
@@ -512,14 +527,12 @@ var Transform = {
      *
      * @return {number} The sum total rotation, in radians, of all parent containers of this Game Object.
      */
-    getParentRotation: function ()
-    {
+    getParentRotation: function() {
         var rotation = 0;
 
         var parent = this.parentContainer;
 
-        while (parent)
-        {
+        while (parent) {
             rotation += parent.rotation;
 
             parent = parent.parentContainer;
@@ -527,7 +540,6 @@ var Transform = {
 
         return rotation;
     }
-
 };
 
 module.exports = Transform;
